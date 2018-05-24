@@ -31,7 +31,7 @@ class Tabla extends Component{
                         </tr>
                         {
                             (this.state.mesas) && this.state.mesas.map( (current, key) =>{return(
-                                <tr>
+                                <tr key={key} >
                                     <td>{current.id}</td>
                                     <td>{current.numero}</td>
                                     <td>{current.lugar.id}</td>

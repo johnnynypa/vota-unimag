@@ -31,7 +31,7 @@ class Tabla extends Component{
                         </tr>
                         {
                             (this.state.programas) && this.state.programas.map( (current, key) =>{return(
-                                <tr>
+                                <tr key={key} >
                                     <td>{current.id}</td>
                                     <td>{current.nombre}</td>
                                     <td>{current.facultad.id}</td>

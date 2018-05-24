@@ -13,6 +13,7 @@ import TablaMesas from './tablaMesa';
 
 class Admin extends Component {
     render() {
+        if(this.props.isLogin)
         return (
             <div className="grid-container">
                 <div className="item1">
@@ -70,6 +71,10 @@ class Admin extends Component {
                 </div>
             </div>
         )
+        else{
+            this.props.history.push('/');
+            return (<div></div>)
+        }
     }
 }
 
