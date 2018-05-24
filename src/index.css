@@ -1,0 +1,23 @@
+*{
+		font-family: 'Calibri';
+		text-align: center;
+		color: #000;
+		margin: 0px;
+		padding: 0px;
+		-webkit-box-sizing:border-box;
+		-moz-box-sizing:border-box;
+		box-sizing:border-box;
+}
+
+body{
+		background-image: url("./img/fondo acuarela pastel 1048-6530.jpg");
+		background-size: cover;
+		background-repeat:no-repeat;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position:fixed;
+		height: 100vh;
+		width: 100vw;
+		overflow-x: hidden;
+}

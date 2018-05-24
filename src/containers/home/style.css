@@ -1,0 +1,100 @@
+.contenedor-form{
+    width: 50vw;
+    max-width: 500px;
+    margin: -4px auto;
+    border-radius: 5px; 
+}
+
+.contenedor-form .toggle{
+    top: 7px;
+    right: 7px;
+    width: 100px;
+    height: 30px;
+    font-size: 12px;
+    line-height: 25px;
+    border-top: 2px solid #ff851b;
+    border-bottom: 2px solid #ff851b;
+    border-radius: 10px;
+    transition: all .5s ease;
+    cursor: pointer;
+}
+
+.contenedor-form .toggle span{
+    letter-spacing: 1px;
+}
+
+.contenedor-form .toggle:hover{
+    border-top: 2px solid #FDE505;
+    border-bottom: 2px solid #D50000;
+    border-right: 2px solid #0505FD;
+    border-left: 2px solid #0505FD;
+}
+
+.contenedor-form input[type="text"],
+.contenedor-form select,
+.contenedor-form input[type="password"],
+.contenedor-form input[type="number"]{
+    outline: none;
+    background: rgba(177, 177, 177, 1);
+    display:block;
+    width: 100%;
+    padding: 10px 15px;
+    border:none;
+    border-radius: 80px;
+    border-bottom: 2px solid #999999;
+    font-size: 18px;
+    font-weight: normal;
+    margin: 0 0 20px 0;
+    transition: all .5s ease;
+}
+
+.contenedor-form input[type="text"]:focus,
+.contenedor-form input[type="password"]:focus,
+.contenedor-form input[type="number"]:focus{
+    border-bottom: 4px solid #808080;
+}
+
+.contenedor-form input[class="btn_send"]{
+    background: rgba(0, 76, 138);
+    border: none;
+    width: 100%;
+    padding: 10px 0;
+    font-weight: normal;
+    letter-spacing: 1px;
+    border-radius: 28px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.contenedor-form input[type="submit"]:hover{
+    background: rgba(0,117,217,0.7);
+    transition: all .5s ease;
+}
+
+.contenedor-form input[id="submit"]:hover{
+    background: rgba(0,117,217,0.7);
+    transition: all .5s ease;
+}
+
+.contenedor-form .reset-password{
+    background: rgba(0,117,217,0.7);
+    width: 100%;
+    padding: 15px 0;
+    text-align: center;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.contenedor-form .reset-password a{
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.contenedor-form .formulario{
+    padding: 10px;
+    display: none;
+}
+
+.contenedor-form .formulario:nth-child(2){
+    display:block;
+}
