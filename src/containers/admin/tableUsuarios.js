@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import graphqlClient from '../../utils/graphqlClient';
+import './tabla.css';
 
 class Tabla extends Component{
 

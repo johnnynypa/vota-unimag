@@ -8,13 +8,13 @@ class Tabla extends Component{
         super(props);
 
         this.state = {
-            programas: []
+            mesas: []
         }
     }
 
     render(){
         return (
-            <div id="Programa" className="tabcontent">
+            <div id="Mesa" className="tabcontent">
                 <input
                     className="input"
                     type="button"
@@ -24,18 +24,18 @@ class Tabla extends Component{
                     className="grid-container">
                     <tbody>
                         <tr>
-                            <th>Id Programa</th>
-                            <th>Nombre</th>
-                            <th>Facultad</th>
-                            <th>Id Facultad</th>
+                            <th>Id Mesa</th>
+                            <th>Numero</th>
+                            <th>Id Lugar</th>
+                            <th>Lugar</th>
                         </tr>
                         {
-                            (this.state.programas) && this.state.programas.map( (current, key) =>{return(
+                            (this.state.mesas) && this.state.mesas.map( (current, key) =>{return(
                                 <tr>
                                     <td>{current.id}</td>
-                                    <td>{current.nombre}</td>
-                                    <td>{current.facultad.id}</td>
-                                    <td>{current.facultad.nombre}</td>
+                                    <td>{current.numero}</td>
+                                    <td>{current.lugar.id}</td>
+                                    <td>{current.lugar.nombre}</td>
                                 </tr>
                             )})
                         }
@@ -48,17 +48,17 @@ class Tabla extends Component{
     componentDidMount(){
         graphqlClient(`
             query{
-                programas{
+                mesas{
                     id
-                    nombre
-                    facultad{
+                    numero
+                    lugar{
                         id
                         nombre
                     }
                 }
             }
         `).then(dat => {
-            this.setState({programas: dat.data.programas})
+            this.setState({mesas: dat.data.mesas})
         })
         .catch(err => {
             alert(err);

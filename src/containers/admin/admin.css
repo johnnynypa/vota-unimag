@@ -1,18 +1,5 @@
-* {
-    font-family: 'Calibri';
-    text-align: center;
-    font-size: 20px;
-}
-
 .tab {
     overflow: hidden;
-}
-.input{
-    padding:10px;
-    vertical-align: middle;
-    border:none;
-    align-content: center;
-    margin:20px;
 }
 
 .text{
@@ -115,26 +102,3 @@ text-align: left;
     'footer';
 
 }
-
-table {       
-    border-collapse: collapse;
-    width: 100%;
-}
-
-th {         
-    font-weight: normal;     
-    padding: 8px;     
-    background: #a8cf45;
-    border-top: 4px solid #a7c947;    
-    border-bottom: 1px solid #fff; 
-    color: #004c8a; }
-
-td {    
-    padding: 8px;     
-    background: #e8edff;
-    color: #669;    
-    border-top: 1px solid transparent; }
-
-tr:hover td { 
-    background: #aeaef7; 
-    color: #004c8a; }

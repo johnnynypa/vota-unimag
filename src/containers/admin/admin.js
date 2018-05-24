@@ -8,7 +8,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TablaPrograma from './tablePrograma';
 import TablaUsuarios from './tableUsuarios';
-import './admin.css';
+import TablaMesas from './tablaMesa';
+// import '../todos.css';
 
 class Admin extends Component {
     render() {
@@ -54,6 +55,7 @@ class Admin extends Component {
                         
                         <TablaUsuarios/>
                         <TablaPrograma />
+                        <TablaMesas />
                     </div>
                     <div className="item5">
                         <img
