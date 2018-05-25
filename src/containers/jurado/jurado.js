@@ -19,6 +19,7 @@ class Jurado extends Component{
 
         this.searchByCodigo = this.searchByCodigo.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.autorizarUser = this.autorizarUser.bind(this);
     }
 
     onChange(e){
@@ -55,6 +56,21 @@ class Jurado extends Component{
             }
         })
         .catch( err => {
+            alert(err);
+        });
+    }
+
+    autorizarUser(e){
+        graphqlClient(`
+            mutation{
+                autorizarUsuario(id: ${e.target.id})
+            }
+        `).then( ({data}) => {
+            if(data.autorizarUsuario){
+                this.setState({codigo: "", buscado:{}});
+                this.componentDidMount();
+            }
+        } ).catch( err => {
             alert(err);
         });
     }
@@ -115,7 +131,7 @@ class Jurado extends Component{
                                             {
                                                 (cur.statusUser.id === 1) ? (
                                                     <td>
-                                                        <button>Autorizar</button>
+                                                        <button id={cur.id} onClick={this.autorizarUser} >Autorizar</button>
                                                     </td>) : (<td></td>)
                                             }
                                             
@@ -133,7 +149,7 @@ class Jurado extends Component{
                                             {
                                                 (this.state.buscado.statusUser.id === 1) ? (
                                                     <td>
-                                                        <button>Autorizar</button>
+                                                        <button id={this.state.buscado.id} onClick={this.autorizarUser} >Autorizar</button>
                                                     </td>) : (<td></td>)
                                             } 
                                     </tr>
@@ -157,7 +173,6 @@ class Jurado extends Component{
               id
               codigo
               nombre
-              nombre2
               apellido
               apellido2
               dni
