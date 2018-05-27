@@ -3,6 +3,7 @@ import graphqlClient from '../../utils/graphqlClient';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {logout, setCurrentUser} from '../../redux/actions/login';
+import SweetAlert from 'sweetalert-react'; // eslint-disable-line import/no-extraneous-dependencies
 import './jurado.css';
 
 
@@ -14,11 +15,13 @@ class Jurado extends Component{
         this.state = {
             votantes:[],
             codigo: "",
-            buscado: {}
+            buscado: {},
+            idUserToAuth: null
         }
 
         this.searchByCodigo = this.searchByCodigo.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.autorizarUserPre = this.autorizarUserPre.bind(this);
         this.autorizarUser = this.autorizarUser.bind(this);
     }
 
@@ -60,19 +63,23 @@ class Jurado extends Component{
         });
     }
 
-    autorizarUser(e){
+    autorizarUser(){
         graphqlClient(`
             mutation{
-                autorizarUsuario(id: ${e.target.id})
+                autorizarUsuario(id: ${this.state.idUserToAuth})
             }
         `).then( ({data}) => {
             if(data.autorizarUsuario){
-                this.setState({codigo: "", buscado:{}});
+                this.setState({codigo: "", buscado:{}, idUserToAuth: null});
                 this.componentDidMount();
             }
         } ).catch( err => {
             alert(err);
         });
+    }
+
+    autorizarUserPre(e){
+        this.setState({idUserToAuth: e.target.id});
     }
 
     render(){
@@ -131,7 +138,7 @@ class Jurado extends Component{
                                             {
                                                 (cur.statusUser.id === 1) ? (
                                                     <td>
-                                                        <button id={cur.id} onClick={this.autorizarUser} >Autorizar</button>
+                                                        <button id={cur.id} onClick={this.autorizarUserPre} >Autorizar</button>
                                                     </td>) : (<td></td>)
                                             }
                                             
@@ -149,7 +156,7 @@ class Jurado extends Component{
                                             {
                                                 (this.state.buscado.statusUser.id === 1) ? (
                                                     <td>
-                                                        <button id={this.state.buscado.id} onClick={this.autorizarUser} >Autorizar</button>
+                                                        <button id={this.state.buscado.id} onClick={this.autorizarUserPre} >Autorizar</button>
                                                     </td>) : (<td></td>)
                                             } 
                                     </tr>
@@ -162,6 +169,18 @@ class Jurado extends Component{
                     <img className="foot" src={require("../../img/foot.png")} alt="universidad del magdalena"/>
                     <img className="foot" src={require("../../img/una-universidad.png")} alt="universidad del magdalena"/>
                 </div>
+                <SweetAlert
+                    show={this.state.idUserToAuth}
+                    title="Autorizacion"
+                    showCancelButton
+                    text="Esta seguro que desea autorizarlo"
+                    onConfirm={() => this.autorizarUser()}
+                    onCancel={() => {
+                        this.setState({ idUserToAuth: null });
+                      }}
+                      onEscapeKey={() => this.setState({ idUserToAuth: null })}
+                      onOutsideClick={() => this.setState({ idUserToAuth: null })}
+                />
             </div>
         );
     }

@@ -3,6 +3,8 @@ import LogoBlack from "../../img/logoo.png";
 import PieImage from "../../img/pie.png";
 import { withRouter } from 'react-router';
 import { loginRequest, setCurrentUser} from '../../redux/actions/login';
+import Modal from 'react-modal';
+import Consulta from './consultaPuesto';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { rolRoute } from '../../utils/validations';
@@ -17,11 +19,21 @@ class Home extends Component{
             dni : "",
             psw : "",
             isLoading : false,
-            errors: ""
+            errors: "",
+            isVisibleModal: false,
         }
 
         this.onSend  = this.onSend.bind(this);
         this.onChange  = this.onChange.bind(this);
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+    }
+
+    openModal(id) {
+        this.setState({ isVisibleModal: true, idUserEdit:id });
+    }
+    closeModal() {
+        this.setState({ isVisibleModal: false });
     }
 
     onSend(e){
@@ -73,8 +85,16 @@ class Home extends Component{
                         <input type="submit" value="Iniciar Sesión" className="btn_send" onClick={this.onSend} />
                     </form>
                     <input type="button" value="VER VOTACIONES EN VIVO" />
+                    <input onClick={this.openModal} type="button" value="Consultar puesto de votacion" />
                 </div>
                 <img className="pie" src={PieImage} alt="" />
+                <Modal
+                    isOpen={this.state.isVisibleModal}
+                    onRequestClose={this.closeModal}
+                    contentLabel="Editar Usuario"
+                >
+                    <Consulta />
+                </Modal>
             </div>
         )
     }
