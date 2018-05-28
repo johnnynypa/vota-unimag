@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import graphqlClient from '../../utils/graphqlClient';
 import './tabla.css';
 
-class Tabla extends Component{
+class Tabla extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -12,40 +12,44 @@ class Tabla extends Component{
         }
     }
 
-    render(){
+    render() {
         return (
             <div id="Mesa" className="tabcontent">
                 <input
                     className="input"
                     type="button"
                     defaultValue="Crear" />
-                <table
-                    id="list-program-admin"
-                    className="grid-container">
-                    <tbody>
-                        <tr>
-                            <th>Id Mesa</th>
-                            <th>Numero</th>
-                            <th>Id Lugar</th>
-                            <th>Lugar</th>
-                        </tr>
-                        {
-                            (this.state.mesas) && this.state.mesas.map( (current, key) =>{return(
-                                <tr key={key} >
-                                    <td>{current.id}</td>
-                                    <td>{current.numero}</td>
-                                    <td>{current.lugar.id}</td>
-                                    <td>{current.lugar.nombre}</td>
-                                </tr>
-                            )})
-                        }
-                    </tbody>
-                </table>
+                <div className="containerTabla" >
+                    <table
+                        id="list-program-admin"
+                        className="container">
+                        <tbody>
+                            <tr>
+                                <th>Id Mesa</th>
+                                <th>Numero</th>
+                                <th>Id Lugar</th>
+                                <th>Lugar</th>
+                            </tr>
+                            {
+                                (this.state.mesas) && this.state.mesas.map((current, key) => {
+                                    return (
+                                        <tr key={key} >
+                                            <td>{current.id}</td>
+                                            <td>{current.numero}</td>
+                                            <td>{current.lugar.id}</td>
+                                            <td>{current.lugar.nombre}</td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         );
     }
 
-    componentDidMount(){
+    componentDidMount() {
         graphqlClient(`
             query{
                 mesas{
@@ -58,11 +62,11 @@ class Tabla extends Component{
                 }
             }
         `).then(dat => {
-            this.setState({mesas: dat.data.mesas})
-        })
-        .catch(err => {
-            alert(err);
-        })
+                this.setState({ mesas: dat.data.mesas })
+            })
+            .catch(err => {
+                alert(err);
+            })
     }
 }
 

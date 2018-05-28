@@ -15,7 +15,7 @@ export const rolRoute = (user) => {
                     break;
                 }
                 default:{
-                    resolve('/s');
+                    resolve('/');
                     break;
                 }
             }

@@ -9,72 +9,94 @@ import PropTypes from 'prop-types';
 import TablaPrograma from './tablePrograma';
 import TablaUsuarios from './tableUsuarios';
 import TablaMesas from './tablaMesa';
-// import '../todos.css';
+import './admin.css';
+import '../todos.css';
 
 class Admin extends Component {
+
+    constructor(props){
+        super(props);
+
+        this.state = {
+            showTable : 1
+        }
+    }
+
     render() {
-        if(this.props.isLogin)
-        return (
-            <div className="grid-container">
-                <div className="item1">
-                    <div className="grid-container-ban">
-                        <div className="pa1">
+        // if (this.props.isLogin)
+            var TablaRender = TablaUsuarios;
+            switch (this.state.showTable){
+                case 1:{
+                    TablaRender = TablaUsuarios;
+                    break;
+                }
+                case 2:{
+                    TablaRender = TablaPrograma;
+                    break;
+                }
+                case 3:{
+                    TablaRender = TablaMesas;
+                    break;
+                }
+            }
+            return (
+                <div className="conte">
+                    <header className="header">
+                        <div className="header-presentacion-admin" >
                             <img
-                                id="logoelectoral"
+                                className="logor"
                                 src={LogoUnimag}
                                 alt="logo universidad del magdalena" />
-                        </div>
-                        <div className="pa2">
-                            <br />
-                            <b>MODULO ADMINISTRADOR </b>
-                            <br /> ELECCIONES 2018
-                            <div className="pa3">
-                                <input
-                                    className="input"
-                                    type="button"
-                                    defaultValue="Salir"
-                                    onClick={
-                                        () => {
-                                            logout();
-                                            this.props.setCurrentUser({});
-                                            this.props.history.push('/');
-                                        }
-                                    }
-                                />
+                            <div>
+                                <b>Administrador</b>
+                                <p>PERIODO 2018 - 2022 </p>
                             </div>
                         </div>
                         <div className="tab">
-                            <button
-                                className="tablinks"> General </button>
-                            <button
-                                className="tablinks"> Programas</button>
-                            <button
-                                className="tablinks"> Proximo</button>
+                            <input
+                                type="button"
+                                className="tablinks"
+                                defaultValue="Usuarios" 
+                                onClick={ () => {
+                                    this.setState({showTable: 1});
+                                }}
+                                />
+                            <input
+                                type="button"
+                                className="tablinks"
+                                defaultValue="Programas"
+                                onClick={ () => {
+                                    this.setState({showTable: 2});
+                                }}
+                                />
+                            <input
+                                type="button"
+                                className="tablinks"
+                                defaultValue="Mesas"
+                                onClick={ () => {
+                                    this.setState({showTable: 3});
+                                }}
+                                />
                         </div>
-                    </div>
-                    <div className="item2">
-                        
-                        <TablaUsuarios/>
-                        <TablaPrograma />
-                        <TablaMesas />
-                    </div>
-                    <div className="item5">
-                        <img
-                            className="foot"
-                            src={FooterImage}
-                            alt="universidad del magdalena" />
-                        <img
-                            className="foot"
-                            src={UnaUni}
-                            alt="universidad del magdalena" />
-                    </div>
+                    </header>
+                    <section className="section-tables" >
+                        <TablaRender />
+                    </section>
+                    <footer className="footer">
+                        <input
+                            type="button"
+                            defaultValue="Estadisticas"
+                            />
+                        <input type="button" defaultValue="Salir" />
+                        <img className="pie" src={require('../../img/pie.png')} />
+                    </footer>
                 </div>
-            </div>
-        )
-        else{
-            this.props.history.push('/');
-            return (<div></div>)
-        }
+
+            )
+        // else {
+        //     this.props.history.push('/');
+        //     return (<div></div>)
+        // }
     }
 }
 

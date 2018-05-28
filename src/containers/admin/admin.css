@@ -1,24 +1,36 @@
+body{
+    display: block !important;
+    position: inherit !important;
+}
+
+input{
+    width: 15vw !important;
+    display: initial !important;
+}
+
+.header-presentacion-admin{
+    display: flex;
+    height: 80px;
+    width: 25vw;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
 .tab {
     overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 60vw;
 }
+
 
 .text{
     width: 10px;
 }
 
-#logoelectoral{
-    width: 100px;
-    background-position: 0% 0%;
-}
-
-h2{
-    color: white;
-}
-
-.foot{
-    width: 350px;
-    margin: 0 10px;
-}
 .pa1 .pa2{
     border-color: #a8cf45;
 }
@@ -35,70 +47,22 @@ h2{
     visibility: hidden;
 }
 
-
-.input{
-    padding:10px;
-    vertical-align: middle;
-    background-color: #004c8a;
-    color: #a8cf45;
-    text-shadow: 0px 7px 9px #ccc;
-    align-content: center;
-    margin:30px 20px;
-    border-bottom:1px solid #ccc;
+.conte{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.input2{
-    vertical-align: middle;
-    background-color: #004c8a;
-    color: #a8cf45;
-    text-shadow: 0px 7px 9px #ccc;
-    align-content: center;
-    margin:3px 2px;
-    border-bottom:1px solid #ccc;
+.conte > *{
+    margin: 0;
+    padding: 0;
 }
 
-#nuevo{
-text-align: left;
-
-}
-
-.grid-container {
-    display: grid;
-    grid: 150px / auto ;
-    grid-gap: 10px;
-  padding: 10px;
-}
-
-.grid-container-ban {
-    display: grid;
-    grid: 100% / auto auto auto;
-    grid-gap: 10px;
-    padding: 10px;
-}
-
-.grid-container>div {
-    text-align: center;
-    vertical-align: middle;
-    padding: 10px 0;
-    font-size: 30px;
-}
-
-.item1 { grid-area: header; 
-    background-color: #a8cf45;
-    color: #004c8a;
-}
-.item2 { grid-area: menu;  
-    background: rgba(22, 22, 22, 0.1);
-  }
-.item5 {
-    grid-area: footer; 
-    background-color: #004c8a;
-}
-
-.grid-container {
-  grid:
-    'header'
-    'menu'
-    'footer';
-
+.section-tables{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

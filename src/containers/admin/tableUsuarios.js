@@ -22,7 +22,7 @@ class Tabla extends Component {
     }
 
     openModalEdit(id) {
-        this.setState({ isVisibleModalEdit: true, idUserEdit:id });
+        this.setState({ isVisibleModalEdit: true, idUserEdit: id });
     }
     closeModalEdit() {
         this.setState({ isVisibleModalEdit: false });
@@ -57,47 +57,46 @@ class Tabla extends Component {
                     className="input"
                     type="button"
                     defaultValue="Crear" />
-                <table
-                    id="list-users-admin"
-                    className="grid-container">
-                    <tbody>
-                        <tr>
-                            <th>Codigo</th>
-                            <th>Nombre 1</th>
-                            <th>Nombre 2</th>
-                            <th>Apellido 1</th>
-                            <th>Apellido 2</th>
-                            <th>Cedula</th>
-                            <th>Rol</th>
-                            <th>Email</th>
-                            <th>Telefono</th>
-                            <th>Programa</th>
-                            <th>Opciones</th>
-                        </tr>
-                        {
-                            (this.state.usuarios) && this.state.usuarios.map((current, key) => {
-                                return (
-                                    <tr key={key} id={current.id}  >
-                                        <td>{current.codigo}</td>
-                                        <td>{current.nombre}</td>
-                                        <td>{current.nombre2}</td>
-                                        <td>{current.apellido}</td>
-                                        <td>{current.apellido2}</td>
-                                        <td>{current.dni}</td>
-                                        <td>{current.rol.nombre}</td>
-                                        <td>{current.email}</td>
-                                        <td>{current.telefono}</td>
-                                        <td>{current.programa.nombre}</td>
-                                        <td  >
-                                            <button id={current.id} onClick={this.onClickEdit} >Editar</button>
-                                            <button id={current.id} onClick={this.onClickDelete} >Eliminar</button>
-                                        </td>
-                                    </tr>
-                                )
-                            })
-                        }
-                    </tbody>
-                </table>
+                <div className="containerTabla" >
+                    <table
+                        id="list-users-admin"
+                        className="container">
+                        <tbody>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>Cedula</th>
+                                <th>Rol</th>
+                                <th>Email</th>
+                                <th>Telefono</th>
+                                <th>Programa</th>
+                                <th>Opciones</th>
+                            </tr>
+                            {
+                                (this.state.usuarios) && this.state.usuarios.map((current, key) => {
+                                    return (
+                                        <tr key={key} id={current.id}  >
+                                            <td>{current.codigo}</td>
+                                            <td  width="10%"> {current.nombre} {current.nombre2}</td>
+                                            <td  width="10%"> {current.apellido} {current.apellido2}</td>
+                                            <td>{current.dni}</td>
+                                            <td>{current.rol.nombre}</td>
+                                            <td  width="30%"> >{current.email}</td>
+                                            <td>{current.telefono}</td>
+                                            <td>{current.programa.nombre}</td>
+                                            <td>
+                                                <button id={current.id} onClick={this.onClickEdit} >Editar</button>
+                                                <button id={current.id} onClick={this.onClickDelete} >Eliminar</button>
+                                            </td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
                 <Modal
                     isOpen={this.state.isVisibleModalEdit}
                     onRequestClose={this.closeModalEdit}
