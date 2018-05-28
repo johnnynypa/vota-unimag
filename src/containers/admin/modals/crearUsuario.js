@@ -14,6 +14,7 @@ class Edit extends Component{
             Dni: "",
             Email: "",
             Telefono: "",
+            sexoSelected: "Masculino",
             rolSelected: 1,
             facultadSelected: 1,
             programaSelected: 1,
@@ -30,13 +31,48 @@ class Edit extends Component{
             lugares: []
         }
         this.onChange= this.onChange.bind(this);
+        this.requestCreate = this.requestCreate.bind(this);
     }
 
     onChange(e){
         this.setState({[e.target.name] : e.target.value})
     }
 
-    
+    requestCreate(e){
+        e.preventDefault();
+        graphqlClient(`
+            mutation{
+                newUsuario(user:{
+                    codigo: "${this.state.Codigo}"
+                    nombre: "${this.state.Nombre}"
+                    nombre2: "${this.state.Nombre2}"
+                    apellido: "${this.state.Apellido1}"
+                    apellido2: "${this.state.Apellido2}"
+                    dni: "${this.state.Dni}"
+                    sexo: "${this.state.sexoSelected}"
+                    email: "${this.state.Email}"
+                    telefono: "${this.state.Telefono}"
+                    rolId: ${this.state.rolSelected}
+                    tipoUsuarioId: ${this.state.tipoUsuarioSelected}
+                    statusUserId: ${this.state.statusUserSelected}
+                    programaId:${this.state.programaSelected}
+                    mesaId: ${this.state.mesaSelected}
+                }) {
+                    id
+                }
+            }
+        `)
+        .then( ({data}) => {
+            if(data.error){
+                alert(data.error.msg);
+            }else{
+                alert("Registrado");
+            }
+        })
+        .catch( err => {
+            alert(err);
+        });
+    }
 
     render(){
         return(
@@ -109,6 +145,15 @@ class Edit extends Component{
                                 )
                             })
                         }
+                    </select>
+                    <br/>
+                    <br/>
+                    <label htmlFor="id_programa">Escoge el sexo</label><br/>
+                    <select name="sexoSelected" id="editFacultad" value={this.state.sexoSelected} onChange={(e) =>{
+                        this.setState({sexoSelected: e.target.value})
+                    }} >
+                        <option value="Masculino" >Masculino </option>
+                        <option value="Femenino" >Femenino </option>
                     </select>
                     <br/>
                     <br/>
@@ -187,7 +232,9 @@ class Edit extends Component{
                     <input
                         className="input"
                         type="submit"
-                        defaultValue="Guardar" />
+                        defaultValue="Guardar"
+                        onClick={ this.requestCreate}
+                        />
                     <input
                         className="input"
                         type="button"

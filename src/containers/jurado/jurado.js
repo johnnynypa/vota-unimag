@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {logout, setCurrentUser} from '../../redux/actions/login';
 import SweetAlert from 'sweetalert-react'; // eslint-disable-line import/no-extraneous-dependencies
+import config from '../../config/default.json';
 import './jurado.css';
 
 
@@ -82,6 +83,10 @@ class Jurado extends Component{
         this.setState({idUserToAuth: e.target.id});
     }
 
+    componentWillMount(){
+        this.props.setCurrentUser(localStorage.getItem(config.localStorageLogin));
+    }
+
     render(){
         return(
             <div className="grid-container">
@@ -116,6 +121,7 @@ class Jurado extends Component{
                             />
                         <button onClick={this.searchByCodigo} >Buscar</button>
                     </div>
+                    <br/>
                     <table id="myTable" className="display tabla-jurado ">
                         <thead>
                             <tr>
@@ -186,30 +192,41 @@ class Jurado extends Component{
     }
 
     componentDidMount(){
-        graphqlClient(`
-        query{
-            usuarios(mesaId: 4){
-              id
-              codigo
-              nombre
-              apellido
-              apellido2
-              dni
-              statusUser{
-                id
-                nombre
-              }
-            }
-        }
-        `).then( ({data}) => {
-            this.setState({
-                votantes: data.usuarios
-            });
-        })
-        .catch( err => {
-            alert(err);
-        });
+        setTimeout(
+            () => {
+                graphqlClient(`
+                    query{
+                        usuarios(mesaId: ${this.props.mesaId}){
+                        id
+                        codigo
+                        nombre
+                        apellido
+                        apellido2
+                        dni
+                        statusUser{
+                            id
+                            nombre
+                        }
+                        }
+                    }
+                `).then( ({data}) => {
+                    this.setState({
+                        votantes: data.usuarios
+                    });
+                })
+                .catch( err => {
+                    alert(err);
+                })   
+            },
+        1000);
     }
 }
 
-export default connect(null, {setCurrentUser})(withRouter(Jurado));
+function mapStateToProps(state){
+    
+    return {
+        mesaId: state.login.user.mesaId
+    }
+}
+
+export default connect(mapStateToProps, {setCurrentUser})(withRouter(Jurado));
