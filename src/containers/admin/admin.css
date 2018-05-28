@@ -36,15 +36,10 @@ input{
 }
 
 .sobre{
-    position: absolute;
-    z-index: 50;
-    background-color: #333;
-    opacity:0.9;
     border: 2px ;
     padding: 2em;
     top: 10%; 
     left: 30%;
-    visibility: hidden;
 }
 
 .conte{

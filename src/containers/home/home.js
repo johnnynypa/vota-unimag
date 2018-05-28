@@ -39,7 +39,6 @@ class Home extends Component{
     onSend(e){
         e.preventDefault();
         const {dni, psw } = this.state;
-        alert("Presionado");
         this.setState({isLoading:true, errors: "" });
         if(dni && psw){
 			loginRequest({dni: dni, password: psw})
@@ -79,13 +78,13 @@ class Home extends Component{
                 <div className="formulario" >
                     <h1>Iniciar Sesión Jurado | Votante</h1>
                     <br/>
-                    <form name="login">
+                    <form className="login">
                         <input onChange={this.onChange} type="text" placeholder="Numero de cedula" name="dni" value={this.state.dni} />
                         <input onChange={this.onChange} type="password" placeholder="Contraseña" name="psw"  value={this.state.psw} />
                         <input type="submit" value="Iniciar Sesión" className="btn_send" onClick={this.onSend} />
                     </form>
-                    <input type="button" value="VER VOTACIONES EN VIVO" />
-                    <input onClick={this.openModal} type="button" value="Consultar puesto de votacion" />
+                    <input type="button" value="Estadisticas" />
+                    <input onClick={this.openModal} type="button" value="Consultar puesto" />
                 </div>
                 <img className="pie" src={PieImage} alt="" />
                 <Modal

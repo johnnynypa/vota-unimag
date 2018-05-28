@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import LogoUnimag from '../../img/logo.png';
-import FooterImage from '../../img/foot.png';
-import UnaUni from '../../img/una-universidad.png';
 import { withRouter } from 'react-router';
 import { logout, setCurrentUser } from '../../redux/actions/login';
 import { connect } from 'react-redux';
@@ -9,8 +7,10 @@ import PropTypes from 'prop-types';
 import TablaPrograma from './tablePrograma';
 import TablaUsuarios from './tableUsuarios';
 import TablaMesas from './tablaMesa';
+import config from '../../config/default.json';
 import './admin.css';
 import '../todos.css';
+
 
 class Admin extends Component {
 
@@ -20,6 +20,10 @@ class Admin extends Component {
         this.state = {
             showTable : 1
         }
+    }
+
+    componentWillMount(){
+        this.props.setCurrentUser(localStorage.getItem(config.localStorageLogin));
     }
 
     render() {
@@ -38,9 +42,13 @@ class Admin extends Component {
                     TablaRender = TablaMesas;
                     break;
                 }
+                default:{
+                    TablaRender = (<div></div>);
+                    break;
+                }
             }
             return (
-                <div className="conte">
+                <div id="admin-container" className="conte">
                     <header className="header">
                         <div className="header-presentacion-admin" >
                             <img
@@ -87,7 +95,13 @@ class Admin extends Component {
                             type="button"
                             defaultValue="Estadisticas"
                             />
-                        <input type="button" defaultValue="Salir" />
+                        <input type="button" defaultValue="Salir" onClick={
+                            () => {
+                                logout();
+                                this.props.setCurrentUser({});
+                                this.props.history.push('/');
+                            }
+                        } />
                         <img className="pie" src={require('../../img/pie.png')} />
                     </footer>
                 </div>

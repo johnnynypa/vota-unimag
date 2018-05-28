@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import graphqlClient from '../../utils/graphqlClient';
 import Modal from 'react-modal';
-import EditUsuario from './editUsuario';
+import EditUsuario from './modals/editUsuario';
+import CrearUsuario from './modals/crearUsuario';
 import './tabla.css';
-
+Modal.setAppElement('#root');
 class Tabla extends Component {
 
     constructor(props) {
@@ -11,23 +12,23 @@ class Tabla extends Component {
 
         this.state = {
             usuarios: [],
-            isVisibleModalEdit: false,
+            editOrCreate: 'new',
+            isVisibleModal: false,
             idUserEdit: null
         }
 
         this.onClickDelete = this.onClickDelete.bind(this);
         this.onClickEdit = this.onClickEdit.bind(this);
-        this.openModalEdit = this.openModalEdit.bind(this);
-        this.closeModalEdit = this.closeModalEdit.bind(this);
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     }
 
-    openModalEdit(id) {
-        this.setState({ isVisibleModalEdit: true, idUserEdit: id });
+    openModal(id) {
+        this.setState({ isVisibleModal: true, idUserEdit: id });
     }
-    closeModalEdit() {
-        this.setState({ isVisibleModalEdit: false });
+    closeModal() {
+        this.setState({ isVisibleModal: false, editOrCreate:'new' });
     }
-
     onClickDelete(e) {
         if (e.target.id) {
             graphqlClient(`
@@ -46,17 +47,23 @@ class Tabla extends Component {
 
     onClickEdit(e) {
         if (e.target.id) {
-            this.openModalEdit(e.target.id);
+            this.openModal(e.target.id);
+            this.setState({editOrCreate: 'edit'});
         }
     }
 
     render() {
+        
         return (
             <div id="Todos" className="tabcontent">
                 <input
                     className="input"
                     type="button"
-                    defaultValue="Crear" />
+                    defaultValue="Crear"
+                    onClick={ () => {
+                        this.openModal();
+                    }}
+                    />
                 <div className="containerTabla" >
                     <table
                         id="list-users-admin"
@@ -78,11 +85,11 @@ class Tabla extends Component {
                                     return (
                                         <tr key={key} id={current.id}  >
                                             <td>{current.codigo}</td>
-                                            <td  width="10%"> {current.nombre} {current.nombre2}</td>
-                                            <td  width="10%"> {current.apellido} {current.apellido2}</td>
+                                            <td>{current.nombre} {current.nombre2}</td>
+                                            <td>{current.apellido} {current.apellido2}</td>
                                             <td>{current.dni}</td>
                                             <td>{current.rol.nombre}</td>
-                                            <td  width="30%"> >{current.email}</td>
+                                            <td>{current.email}</td>
                                             <td>{current.telefono}</td>
                                             <td>{current.programa.nombre}</td>
                                             <td>
@@ -98,11 +105,12 @@ class Tabla extends Component {
                 </div>
 
                 <Modal
-                    isOpen={this.state.isVisibleModalEdit}
-                    onRequestClose={this.closeModalEdit}
-                    contentLabel="Editar Usuario"
+                    isOpen={this.state.isVisibleModal}
+                    onRequestClose={this.closeModal}
+                    contentLabel="Example Modal"
+                    ariaHideApp={true}
                 >
-                    <EditUsuario id={this.state.idUserEdit} />
+                    <CrearUsuario />
                 </Modal>
             </div>
         );

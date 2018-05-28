@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import graphqlClient from '../../utils/graphqlClient';
+import graphqlClient from '../../../utils/graphqlClient';
 
 class Edit extends Component{
     constructor(props){
@@ -9,18 +9,18 @@ class Edit extends Component{
             Codigo: "",
             Nombre: "",
             Nombre2: "",
-            Apellido: "",
+            Apellido1: "",
             Apellido2: "",
             Dni: "",
             Email: "",
             Telefono: "",
-            rolSelected: null,
-            facultadSelected: null,
-            programaSelected: null,
-            tipoUsuarioSelected: null,
-            statusUserSelected: null,
-            mesaSelected: null,
-            lugarSelected: null,
+            rolSelected: 1,
+            facultadSelected: 1,
+            programaSelected: 1,
+            tipoUsuarioSelected: 1,
+            statusUserSelected: 1,
+            mesaSelected: 1,
+            lugarSelected: 1,
             roles:[],
             facultades:[],
             programas: [],
@@ -29,44 +29,62 @@ class Edit extends Component{
             mesas: [],
             lugares: []
         }
+        this.onChange= this.onChange.bind(this);
     }
 
     onChange(e){
         this.setState({[e.target.name] : e.target.value})
     }
 
+    
+
     render(){
         return(
             <aside className="sobre" id="confir">
                 <form name="admin">
                     <h2>Editar Usuario</h2>
-                    <input type="text" id="newcodigo"
+                    <input onChange={this.onChange} type="text" id="newcodigo"
                         name="Codigo" placeholder="Codigo"
                         value={this.state.Codigo}
                         />
-                    <input
+                    <input onChange={this.onChange}
                         type="text" id="newnombre1" name="Nombre" placeholder="Primer Nombre"
                         value={this.state.Nombre}
                         />
                     <br />
-                    <input
+                    <input onChange={this.onChange}
                         type="text" id="newnombre2" name="Nombre2" placeholder="Segundo Nombre"
                         value={this.state.Nombre2}/>
-                    <input
+                    <input onChange={this.onChange}
                         type="text" id="newapellido1" name="Apellido1" placeholder="Primer Apellido"
                         value={this.state.Apellido}
                         />
                     <br />
-                    <input
+                    <input onChange={this.onChange}
                         type="text" id="newapellido2" name="Apellido2" placeholder="Segundo Apellido"
                         value={this.state.Apellido2}
                         />
-                    <input
+                    <input onChange={this.onChange}
                         type="text" id="newcedula" name="Dni" placeholder="Documento Identificacion"
                         value={this.state.Dni}
                         />
+
+                    <br/>
+                    <br/>
+                    <input
+                        type="text" id="newemail" name="Email" placeholder="Email"
+                        value={this.state.Email} onChange={this.onChange}
+                        />
                     <br />
-                    <label htmlFor="newrol">Escoge el Rol</label>
+                    
+                    <input
+                        type="text" id="newtelefono" name="Telefono" placeholder="Telefono"
+                        value={this.state.Telefono} onChange={this.onChange}
+                        />
+
+                        <br/>
+                        <br/>
+                    <label htmlFor="newrol">Escoge el Rol</label><br/>
                     <select name="rolSelected" id="editRol" value={this.state.rolSelected} onChange={(e) =>{
                         this.setState({rolSelected: parseInt(e.target.value, 10)})
                     }} >
@@ -78,7 +96,9 @@ class Edit extends Component{
                             })
                         }
                     </select>
-                    <label htmlFor="id_programa">Escoge la facultad</label>
+                    <br/>
+                    <br/>
+                    <label htmlFor="id_programa">Escoge la facultad</label><br/>
                     <select name="facultadSelected" id="editFacultad" value={this.state.facultadSelected} onChange={(e) =>{
                         this.setState({facultadSelected: parseInt(e.target.value, 10)})
                     }} >
@@ -91,21 +111,23 @@ class Edit extends Component{
                         }
                     </select>
                     <br/>
-                    <label htmlFor="id_programa">Escoge el programa</label>
-                    <select name="programaSelected" id="editPrograma" value={this.state.programaSelected} onChange={(e) =>{
+                    <br/>
+                    
+                    <label htmlFor="id_programa">Escoge La Programa</label><br/>
+                    <select name="mes" id="editStatusUser" value={this.state.programaSelected} onChange={(e) =>{
                         this.setState({programaSelected: parseInt(e.target.value, 10)})
                     }} >
                         {
-                            (this.state.programas) && this.state.programas.map( (cur, key) => {
-                                return (cur.facultad.id === this.state.facultadSelected) ?
-                                (
-                                    <option value={cur.id} >{cur.nombre} </option>
-                                ) : null;
+                            (this.state.programas) && this.state.programas.filter( (cur, key) => {
+                                return (cur.facultad.id == this.state.facultadSelected );
+                            }).map( (cur, key) => {
+                                return (<option value={cur.id} >{cur.nombre} </option>);
                             })
                         }
                     </select>
                     <br/>
-                    <label htmlFor="id_programa">Escoge el estado</label>
+                    <br/>
+                    <label htmlFor="id_programa">Escoge el estado</label><br/>
                     <select name="statusUserSelected" id="editStatusUser" value={this.state.statusUserSelected} onChange={(e) =>{
                         this.setState({statusUserSelected: parseInt(e.target.value, 10)})
                     }} >
@@ -118,7 +140,8 @@ class Edit extends Component{
                         }
                     </select>
                     <br/>
-                    <label htmlFor="id_programa">Escoge el tipo de usuario</label>
+                    <br/>
+                    <label htmlFor="id_programa">Escoge el tipo de usuario</label><br/>
                     <select name="tipoUsuarioSelected" id="editStatusUser" value={this.state.tipoUsuarioSelected} onChange={(e) =>{
                         this.setState({tipoUsuarioSelected: parseInt(e.target.value, 10)})
                     }} >
@@ -131,28 +154,34 @@ class Edit extends Component{
                         }
                     </select>
                     <br/>
-                    <label htmlFor="id_programa">Escoge la mesa</label>
-                    <select name="mes" id="editStatusUser" value={this.state.tipoUsuarioSelected} onChange={(e) =>{
-                        this.setState({tipoUsuarioSelected: parseInt(e.target.value, 10)})
+                    <br/>
+                    <label htmlFor="id_programa">Escoge el lugar</label><br/>
+                    <select name="mes" id="editStatusUser" value={this.state.lugarSelected} onChange={(e) =>{
+                        this.setState({lugarSelected: parseInt(e.target.value, 10)})
                     }} >
                         {
-                            (this.state.tiposUsuario) && this.state.tiposUsuario.map( (cur, key) => {
+                            (this.state.lugares) && this.state.lugares.map( (cur, key) => {
                                 return(
                                     <option value={cur.id} >{cur.nombre} </option>
                                 )
                             })
                         }
                     </select>
-                    <input
-                        type="text" id="newemail" name="Email" placeholder="Email"
-                        value={this.state.Email}
-                        />
-                    <br />
-                    <input
-                        type="text" id="newtelefono" name="Telefono" placeholder="Telefono"
-                        value={this.state.Telefono}
-                        />
-                    {/* FALTAN LOS SELECTS DE LUGAR Y MESA*/}
+                    <br/>
+                    <br/>
+                    <label htmlFor="id_programa">Escoge La mesa</label><br/>
+                    <select name="mes" id="editStatusUser" value={this.state.mesaSelected} onChange={(e) =>{
+                        this.setState({mesaSelected: parseInt(e.target.value, 10)})
+                    }} >
+                        {
+                            (this.state.mesas) && this.state.mesas.filter( (cur, key) => {
+                                return (cur.lugar.id == this.state.lugarSelected );
+                            }).map( (cur, key) => {
+                                return (<option value={cur.id} >{cur.numero}</option>);
+                            })
+                        }
+                    </select>
+                    
                     <br />
                     <br />
                     <input
@@ -171,33 +200,6 @@ class Edit extends Component{
     componentDidMount(){
         graphqlClient(`
             query{
-                usuario(id: ${this.props.id}){
-                    id
-                    codigo
-                    nombre
-                    nombre2
-                    apellido
-                    apellido2
-                    dni
-                    email
-                    telefono
-                    sexo
-                    rol{
-                        id
-                    }
-                    tipoUsuario{
-                        id
-                    }
-                    statusUser{
-                        id
-                    }
-                    programa{
-                        id
-                    }
-                    mesa{
-                        id
-                    }
-                }
                 roles{
                     id
                     nombre
@@ -235,20 +237,8 @@ class Edit extends Component{
             }
         `).then(({data}) => {
             this.setState({
-                Codigo: data.usuario.codigo,
-                Nombre: data.usuario.nombre,
-                Nombre2: data.usuario.nombre2,
-                Apellido: data.usuario.apellido,
-                Apellido2: data.usuario.apellido2,
-                Dni: data.usuario.dni,
-                Email: data.usuario.email,
-                Telefono: data.usuario.telefono,
-                Sexo: data.usuario.sexo,
-                rolSelected: data.usuario.rol.id,
-                programaSelected: data.usuario.programa.id,
-                tipoUsuarioSelected: data.usuario.tipoUsuario.id,
-                statusUserSelected: data.usuario.statusUser.id,
                 roles: data.roles,
+                mesas: data.mesas,
                 facultades: data.facultades,
                 programas: data.programas,
                 lugares: data.lugares,
@@ -267,13 +257,14 @@ class Edit extends Component{
                 });
             });
 
-
             
         })
         .catch( err => {
             alert(err);
         });
     }
+
+
 }
 
 export default Edit;
