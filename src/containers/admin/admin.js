@@ -27,7 +27,7 @@ class Admin extends Component {
     }
 
     render() {
-        // if (this.props.isLogin)
+        if (this.props.isLogin){
             var TablaRender = TablaUsuarios;
             switch (this.state.showTable){
                 case 1:{
@@ -107,10 +107,10 @@ class Admin extends Component {
                 </div>
 
             )
-        // else {
-        //     this.props.history.push('/');
-        //     return (<div></div>)
-        // }
+        }else {
+            this.props.history.push('/');
+            return (<div></div>)
+        }
     }
 }
 

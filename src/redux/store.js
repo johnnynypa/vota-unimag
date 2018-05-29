@@ -12,3 +12,5 @@ export const initStore = () => {
     )
   )
 }
+
+// applyMiddleware(thunkMiddleware)(window.devToolsExtension) ? window.devToolsExtension() : f => f
