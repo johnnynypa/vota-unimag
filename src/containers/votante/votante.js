@@ -55,6 +55,7 @@ class Votante extends React.Component{
                     }){
                         id
                     }
+                    usuarioVotado(id: ${this.props.user.id})
                 }
             `)
             .then( ({data}) => {
@@ -66,7 +67,6 @@ class Votante extends React.Component{
                         msgAlert: "Voto registrado",
                         votado: true
                     });
-
                 }
             })
             .catch( err => {
@@ -86,7 +86,6 @@ class Votante extends React.Component{
     }
 
     handleSelectTab(key) {
-        console.log('selected' + key);
         this.setState({keyTab: key});
     }
     
